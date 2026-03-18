@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit cache
+.streamlit/
+
+# Temp / output logs
+*_output.txt
+add_bonus_cells.py
+
+# OS
+.DS_Store
+Thumbs.db
