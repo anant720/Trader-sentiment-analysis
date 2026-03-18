@@ -205,5 +205,5 @@ streamlit run dashboard.py
 
 ## Submitted by
 
-**Name:** [YOUR NAME]
-**Email:** [YOUR EMAIL]
+**Name:** Anant Suthar
+**Email:** nntsuthar@gmail.com
