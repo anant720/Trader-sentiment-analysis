@@ -52,20 +52,7 @@
   --ease-ios: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.dark {
-  --bg-primary:       #030712;
-  --bg-secondary:     #111827;
-  --bg-elevated:      #1F2937;
-  --text-primary:     #F9FAFB;
-  --text-secondary:   #9CA3AF;
-  --text-tertiary:    #4B5563;
-  --separator:        rgba(255, 255, 255, 0.1);
-  
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2);
-  
-  --color-primary-light: #818CF8;
-}
+
 
 
 /* ============================================================

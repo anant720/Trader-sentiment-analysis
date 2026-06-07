@@ -1,7 +1,7 @@
 import useAuthStore from '../store/authStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, Info, Mail, LogOut, User, BookOpen, GraduationCap, Hash, Shield, Bug, Moon, RefreshCw } from 'lucide-react';
+import { ChevronRight, Info, Mail, LogOut, User, BookOpen, GraduationCap, Hash, Shield, Bug, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import otaService from '../services/otaService';
 
@@ -12,7 +12,7 @@ export default function ProfilePage() {
   const signOut = useAuthStore(s => s.signOut);
   const navigate = useNavigate();
   const [showAbout, setShowAbout] = useState(false);
-  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
+
   const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
   const [updateMessage, setUpdateMessage] = useState('');
 
@@ -41,17 +41,7 @@ export default function ProfilePage() {
     }, 3000);
   };
 
-  const toggleDarkMode = () => {
-    const next = !isDark;
-    setIsDark(next);
-    if (next) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
+
 
   const data = {
     name: profile?.displayName || user?.displayName || 'Student Name',
@@ -88,13 +78,7 @@ export default function ProfilePage() {
             label="University Email"
             value={user?.email || 'Not available'}
           />
-          <Divider />
-          <ActionRow
-            icon={Moon}
-            label="Dark Mode"
-            value={isDark ? 'On' : 'Off'}
-            onClick={toggleDarkMode}
-          />
+
           <Divider />
           <ActionRow
             icon={Info}
