@@ -9,15 +9,8 @@ import useAuthStore from '../../store/authStore';
 export default function AuthRequiredRoute() {
   const user = useAuthStore(s => s.user);
   const isLoading = useAuthStore(s => s.isLoading);
-  const needsPassword = useAuthStore(s => s.needsPassword);
-  const location = useLocation();
-
   if (isLoading) return null;
   if (!user) return <Navigate to="/onboarding" replace />;
-  
-  if (needsPassword && location.pathname !== '/set-password') {
-    return <Navigate to="/set-password" replace />;
-  }
 
   return <Outlet />;
 }

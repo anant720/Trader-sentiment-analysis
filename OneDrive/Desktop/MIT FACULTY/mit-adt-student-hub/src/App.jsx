@@ -11,7 +11,6 @@ import arcusLogo from './assets/arcus_logo.png';
 import OnboardingPage from './pages/auth/OnboardingPage';
 import LoginPage from './pages/auth/LoginPage';
 import SignupPage from './pages/auth/SignupPage';
-import SetPasswordPage from './pages/auth/SetPasswordPage';
 import CompleteProfilePage from './pages/auth/CompleteProfilePage';
 
 import FacultyPage from './pages/FacultyPage';
@@ -59,7 +58,6 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
 
         <Route element={<AuthRequiredRoute />}>
-          <Route path="/set-password" element={<SetPasswordPage />} />
           <Route path="/complete-profile" element={<CompleteProfilePage />} />
         </Route>
 

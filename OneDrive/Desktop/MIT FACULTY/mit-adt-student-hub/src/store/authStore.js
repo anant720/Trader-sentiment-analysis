@@ -13,7 +13,6 @@ import {
   resetPassword as resetPasswordService,
   signUpWithEmail as signUpWithEmailService,
   signInWithEmail,
-  setHardPassword as setHardPasswordService,
 } from '../services/auth.service';
 import { apiRequest, setAccessToken } from '../config/api';
 
@@ -48,7 +47,6 @@ const useAuthStore = create((set, get) => ({
   profile: null,       // Firestore /users/{uid} document
   isLoading: true,     // True until first auth state check resolves
   needsProfile: false, // True if user is logged in but hasn't completed profile
-  needsPassword: false, // True if user signed in via Google but hasn't set a hard password
   isAdmin: localSession ? localSession.isAdmin : false,
   error: null,
   isAuthenticating: false,
@@ -90,7 +88,6 @@ const useAuthStore = create((set, get) => ({
           user: fallbackUser || { uid: profile?.uid, email: profile?.email },
           profile,
           needsProfile: !isComplete,
-          needsPassword: profile?.needsPassword === true,
           isAdmin: profile?.role === 'admin' || profile?.isAdmin === true,
           isLoading: false,
           error: null,
@@ -118,7 +115,7 @@ const useAuthStore = create((set, get) => ({
         // If we already had a local session, don't wipe it out on a simple network failure
         const hasSession = !!getLocalSession();
         if (!hasSession) {
-          set({ user: null, profile: null, needsProfile: false, needsPassword: false, isAdmin: false, isLoading: false });
+          set({ user: null, profile: null, needsProfile: false, isAdmin: false, isLoading: false });
         } else {
           set({ isLoading: false }); // keep user logged in with stale data
         }
@@ -153,7 +150,6 @@ const useAuthStore = create((set, get) => ({
         user,
         profile,
         needsProfile: !isComplete,
-        needsPassword: profile?.needsPassword === true,
         isAdmin: profile?.role === 'admin' || profile?.isAdmin === true,
         isLoading: false,
         isAuthenticating: false,
@@ -245,23 +241,12 @@ const useAuthStore = create((set, get) => ({
     }
   },
 
-  // ── Set Hard Password ───────────────────────────────
-  async setHardPassword(password) {
-    set({ isLoading: true, error: null });
-    try {
-      await setHardPasswordService(password);
-      set({ needsPassword: false, isLoading: false });
-      return { success: true };
-    } catch (err) {
-      set({ isLoading: false, error: err.message || 'Failed to set password' });
-      return { success: false, error: err.message };
-    }
-  },
+
 
   // ── Sign Out ────────────────────────────────────────
   async signOut() {
     await signOutService();
-    set({ user: null, profile: null, isAdmin: false, needsProfile: false, needsPassword: false });
+    set({ user: null, profile: null, isAdmin: false, needsProfile: false });
   },
 
   // ── Reset Password ──────────────────────────────────

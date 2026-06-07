@@ -173,10 +173,3 @@ export async function refreshSession() {
   if (res.accessToken) setAccessToken(res.accessToken);
   return res;
 }
-
-export async function setHardPassword(password) {
-  return apiRequest('/auth/set-password', {
-    method: 'POST',
-    body: JSON.stringify({ password }),
-  });
-}
