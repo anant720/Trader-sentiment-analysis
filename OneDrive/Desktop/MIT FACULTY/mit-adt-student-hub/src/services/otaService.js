@@ -15,10 +15,9 @@ class OtaService {
     }
 
     try {
-      // 1. Fetch latest version from our custom backend
-      const response = await fetch(`${env.apiBaseUrl}/ota/check`);
+      // 1. Fetch latest version from Vercel deployment
+      const response = await fetch(`https://arcus-8r5m.vercel.app/ota.json?t=${Date.now()}`);
       if (!response.ok) {
-        if (response.status === 404) return null; // No updates available
         throw new Error('Failed to check for updates');
       }
 
@@ -32,8 +31,7 @@ class OtaService {
         // Return update metadata
         return {
           version,
-          // Build absolute URL for the ZIP file based on the backend URL
-          url: `${env.apiBaseUrl.replace('/api', '')}${url}`
+          url: url
         };
       }
 

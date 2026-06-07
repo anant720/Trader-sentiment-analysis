@@ -39,37 +39,7 @@ export default function HubPage() {
     };
   }, []);
 
-  const actions = [
-    {
-      title: 'Faculty Search',
-      subtitle: 'Find cabins, departments, and contacts fast.',
-      icon: Search,
-      tone: 'bg-[#F2F2F7]',
-      to: '/',
-    },
-    {
-      title: 'Campus Events',
-      subtitle: 'See active event promotions and updates.',
-      icon: CalendarDays,
-      tone: 'bg-[#C1E8FF]',
-      to: '/tasks',
-    },
-    {
-      title: 'Profile',
-      subtitle: 'See your student details and preferences.',
-      icon: UserCircle2,
-      tone: 'bg-[#F2F2F7]',
-      to: '/profile',
-    },
-    {
-      title: 'Settings',
-      subtitle: 'About app, theme controls, and sign out.',
-      icon: Settings2,
-      tone: 'bg-[#C1E8FF]',
-      to: '/profile',
-    },
-  ];
-
+  // Removed unused actions array
   return (
     <div className="pb-28 md:pb-0">
       {/* Desktop Header removed here since AppShell has it, but we can keep a nice greeting */}
