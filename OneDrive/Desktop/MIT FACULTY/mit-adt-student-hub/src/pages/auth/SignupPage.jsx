@@ -7,16 +7,14 @@ import arcusLogo from '../../assets/arcus_logo.png';
 export default function SignupPage() {
   const navigate = useNavigate();
   const signInWithGoogle = useAuthStore(s => s.signInWithGoogle);
-  const requestSignupOtp = useAuthStore(s => s.requestSignupOtp);
-  const verifySignupOtp = useAuthStore(s => s.verifySignupOtp);
+  const signUpWithEmail = useAuthStore(s => s.signUpWithEmail);
   const isLoading = useAuthStore(s => s.isLoading);
   const error = useAuthStore(s => s.error);
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [otp, setOtp] = useState('');
-  const [otpRequested, setOtpRequested] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(false);
 
   const handleGoogleSignup = async () => {
     await Haptics.impact({ style: ImpactStyle.Medium });
@@ -24,19 +22,12 @@ export default function SignupPage() {
     if (res.success) navigate('/complete-profile');
   };
 
-  const handleRequestOtp = async (e) => {
+  const handleEmailSignup = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) return;
     await Haptics.impact({ style: ImpactStyle.Medium });
-    const res = await requestSignupOtp({ email, password, displayName });
-    if (res.success) setOtpRequested(true);
-  };
-
-  const handleVerifyOtp = async (e) => {
-    e.preventDefault();
-    await Haptics.impact({ style: ImpactStyle.Medium });
-    const res = await verifySignupOtp({ email, otp });
-    if (res.success) navigate('/complete-profile');
+    const res = await signUpWithEmail({ email, password, displayName });
+    if (res.success) setSignupSuccess(true);
   };
 
   return (
@@ -68,8 +59,8 @@ export default function SignupPage() {
           </p>
 
           <div className="mt-8 space-y-6">
-            {!otpRequested ? (
-              <form onSubmit={handleRequestOtp} className="space-y-4">
+            {!signupSuccess ? (
+              <form onSubmit={handleEmailSignup} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Full Name</label>
                   <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all" required placeholder="John Doe" />
@@ -94,34 +85,24 @@ export default function SignupPage() {
                   className="w-full flex justify-center py-3 px-4 mt-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors"
                   disabled={isLoading || (password !== confirmPassword)}
                 >
-                  {isLoading ? 'Sending OTP...' : 'Send OTP'}
+                  {isLoading ? 'Creating account...' : 'Sign up'}
                 </button>
               </form>
             ) : (
-              <form onSubmit={handleVerifyOtp} className="space-y-5">
-                <div className="rounded-lg border border-indigo-100 bg-indigo-50 p-4">
-                  <p className="text-indigo-900 text-sm font-semibold">OTP verification</p>
-                  <p className="text-indigo-700 text-sm mt-1">We sent a 6-digit code to {email}.</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">6-digit OTP</label>
-                  <input value={otp} onChange={(e) => setOtp(e.target.value)} className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-center tracking-widest font-mono text-lg" required maxLength={6} placeholder="000000" />
+              <div className="space-y-5">
+                <div className="rounded-lg border border-indigo-100 bg-indigo-50 p-6 text-center">
+                  <h3 className="text-indigo-900 text-lg font-semibold mb-2">Check your inbox!</h3>
+                  <p className="text-indigo-700 text-sm">
+                    We've sent a verification link to <strong>{email}</strong>. Please click the link to verify your account before logging in.
+                  </p>
                 </div>
                 <button
-                  type="submit"
-                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors"
-                  disabled={isLoading || otp.trim().length !== 6}
+                  onClick={() => navigate('/login')}
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                 >
-                  {isLoading ? 'Verifying...' : 'Verify OTP and Create Account'}
+                  Go to Login
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setOtpRequested(false)}
-                  className="w-full py-3 px-4 text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Change Email/Password
-                </button>
-              </form>
+              </div>
             )}
 
             {error && (

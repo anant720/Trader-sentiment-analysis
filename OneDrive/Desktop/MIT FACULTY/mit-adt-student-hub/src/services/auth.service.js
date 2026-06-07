@@ -4,13 +4,16 @@ import {
   signOut as firebaseSignOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
-  signInWithCredential,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { ALLOWED_EMAIL_DOMAINS } from '../config/constants';
 import { apiRequest, setAccessToken } from '../config/api';
 import { Capacitor } from '@capacitor/core';
-import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 function getDomain(email = '') {
   return email.split('@')[1]?.toLowerCase?.() ?? '';
@@ -25,8 +28,9 @@ export async function signInWithGoogle() {
   let user;
 
   if (Capacitor.isNativePlatform()) {
-    const nativeResult = await FirebaseAuthentication.signInWithGoogle();
-    const credential = GoogleAuthProvider.credential(nativeResult.credential?.idToken);
+    GoogleAuth.initialize();
+    const nativeResult = await GoogleAuth.signIn();
+    const credential = GoogleAuthProvider.credential(nativeResult.authentication.idToken);
     const result = await signInWithCredential(auth, credential);
     user = result.user;
   } else {
@@ -39,7 +43,7 @@ export async function signInWithGoogle() {
   if (!isAllowedUniversityEmail(user.email)) {
     await firebaseSignOut(auth);
     if (Capacitor.isNativePlatform()) {
-      await FirebaseAuthentication.signOut().catch(() => {});
+      await GoogleAuth.signOut().catch(() => {});
     }
     const error = new Error('Please use your official university Google account.');
     error.code = 'auth/unauthorized-domain';
@@ -86,7 +90,7 @@ export async function signOut() {
   setAccessToken(null);
   await firebaseSignOut(auth).catch(() => {});
   if (Capacitor.isNativePlatform()) {
-    await FirebaseAuthentication.signOut().catch(() => {});
+    await GoogleAuth.signOut().catch(() => {});
   }
 }
 
@@ -94,29 +98,73 @@ export async function resetPassword(email) {
   await sendPasswordResetEmail(auth, email);
 }
 
-export async function requestEmailSignupOtp({ email, password, displayName }) {
-  return apiRequest('/auth/email/request-otp', {
-    method: 'POST',
-    body: JSON.stringify({ email, password, displayName }),
-  });
-}
-
-export async function verifyEmailSignupOtp({ email, otp }) {
-  const res = await apiRequest('/auth/email/verify-signup', {
-    method: 'POST',
-    body: JSON.stringify({ email, otp }),
-  });
-  setAccessToken(res.accessToken);
-  return res;
+export async function signUpWithEmail({ email, password, displayName }) {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    if (displayName) {
+      await updateProfile(userCredential.user, { displayName });
+    }
+    const actionCodeSettings = {
+      url: 'https://arcus-8r5m.vercel.app/login?verified=true', 
+      handleCodeInApp: true,
+      android: {
+        packageName: 'com.arcus.campusapp',
+        installApp: true,
+        minimumVersion: '12'
+      }
+    };
+    await sendEmailVerification(userCredential.user, actionCodeSettings);
+    return userCredential.user;
+  } catch (error) {
+    let friendlyMessage = 'Failed to create account.';
+    if (error.code === 'auth/email-already-in-use') {
+      friendlyMessage = 'An account with this email already exists.';
+    } else if (error.code === 'auth/weak-password') {
+      friendlyMessage = 'Password should be at least 6 characters.';
+    }
+    const enhancedError = new Error(friendlyMessage);
+    enhancedError.code = error.code;
+    throw enhancedError;
+  }
 }
 
 export async function signInWithEmail({ email, password }) {
-  const res = await apiRequest('/auth/email/login', {
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
-  });
-  setAccessToken(res.accessToken);
-  return res;
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    
+    if (!userCredential.user.emailVerified) {
+      await firebaseSignOut(auth);
+      throw new Error('Please verify your email address before logging in. Check your inbox.');
+    }
+
+    const idToken = await userCredential.user.getIdToken();
+    const backendRes = await apiRequest('/auth/google', {
+      method: 'POST',
+      body: JSON.stringify({ idToken }),
+    });
+    setAccessToken(backendRes.accessToken);
+    return { user: userCredential.user, profile: backendRes.user };
+  } catch (error) {
+    let friendlyMessage = 'Failed to sign in.';
+    switch (error.code) {
+      case 'auth/user-not-found':
+      case 'auth/invalid-credential':
+      case 'auth/wrong-password':
+        friendlyMessage = 'Incorrect email or password.';
+        break;
+      case 'auth/too-many-requests':
+        friendlyMessage = 'Too many failed attempts. Please try again later.';
+        break;
+      case 'auth/user-disabled':
+        friendlyMessage = 'This account has been disabled.';
+        break;
+      default:
+        friendlyMessage = error.message || friendlyMessage;
+    }
+    const enhancedError = new Error(friendlyMessage);
+    enhancedError.code = error.code;
+    throw enhancedError;
+  }
 }
 
 export async function refreshSession() {

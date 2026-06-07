@@ -11,8 +11,7 @@ import {
   completeUserProfile,
   signOut as signOutService,
   resetPassword as resetPasswordService,
-  requestEmailSignupOtp,
-  verifyEmailSignupOtp,
+  signUpWithEmail as signUpWithEmailService,
   signInWithEmail,
   setHardPassword as setHardPasswordService,
 } from '../services/auth.service';
@@ -173,43 +172,14 @@ const useAuthStore = create((set, get) => ({
     }
   },
 
-  async requestSignupOtp({ email, password, displayName }) {
+  async signUpWithEmail({ email, password, displayName }) {
     set({ isLoading: true, error: null, isAuthenticating: true });
     try {
-      await requestEmailSignupOtp({ email, password, displayName });
+      await signUpWithEmailService({ email, password });
       set({ isLoading: false, isAuthenticating: false });
       return { success: true };
     } catch (err) {
-      const msg = err.message || 'Failed to send OTP';
-      set({ isLoading: false, isAuthenticating: false, error: msg });
-      return { success: false, error: msg };
-    }
-  },
-
-  async verifySignupOtp({ email, otp }) {
-    set({ isLoading: true, error: null, isAuthenticating: true });
-    try {
-      const res = await verifyEmailSignupOtp({ email, otp });
-      const profile = res.user || null;
-      const isComplete = !!(
-        profile?.displayName &&
-        profile?.department &&
-        profile?.course &&
-        profile?.year &&
-        profile?.enrollment &&
-        profile?.roll
-      );
-      set({
-        user: { uid: profile?.uid, email: profile?.email },
-        profile,
-        needsProfile: !isComplete,
-        isAdmin: profile?.role === 'admin' || profile?.isAdmin === true,
-        isLoading: false,
-        isAuthenticating: false,
-      });
-      return { success: true };
-    } catch (err) {
-      const msg = err.message || 'Invalid OTP';
+      const msg = err.message || 'Failed to create account';
       set({ isLoading: false, isAuthenticating: false, error: msg });
       return { success: false, error: msg };
     }
@@ -219,7 +189,7 @@ const useAuthStore = create((set, get) => ({
     set({ isLoading: true, error: null, isAuthenticating: true });
     try {
       const res = await signInWithEmail({ email, password });
-      const profile = res.user || null;
+      const profile = res.profile || null;
       const isComplete = !!(
         profile?.displayName &&
         profile?.department &&

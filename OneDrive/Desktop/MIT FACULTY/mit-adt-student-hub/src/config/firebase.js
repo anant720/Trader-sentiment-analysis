@@ -5,11 +5,6 @@
 
 import { initializeApp } from 'firebase/app';
 import {
-  getAuth,
-  setPersistence,
-  indexedDBLocalPersistence,
-} from 'firebase/auth';
-import {
   getFirestore,
   initializeFirestore,
   persistentLocalCache,
@@ -34,10 +29,15 @@ let auth;
 let db;
 let storage;
 
+import { initializeAuth, indexedDBLocalPersistence } from 'firebase/auth';
+
 try {
   app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  setPersistence(auth, indexedDBLocalPersistence).catch(console.error);
+  
+  // Explicitly initialize with indexedDBLocalPersistence to avoid browser persistence blocking in Android WebViews
+  auth = initializeAuth(app, {
+    persistence: indexedDBLocalPersistence
+  });
 
   // Initialize Firestore with modern persistence (migrating from deprecated enableIndexedDbPersistence)
   db = initializeFirestore(app, {

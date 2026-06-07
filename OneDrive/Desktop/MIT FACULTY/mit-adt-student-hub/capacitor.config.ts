@@ -17,9 +17,10 @@ const config: CapacitorConfig = {
   },
 
   plugins: {
-    FirebaseAuthentication: {
-      skipNativeAuth: false,
-      providers: ['google.com'],
+    GoogleAuth: {
+      scopes: ['profile', 'email'],
+      serverClientId: '486841171883-rc6b8m829p38qknuvad43talfcmhl77h.apps.googleusercontent.com',
+      forceCodeForRefreshToken: true,
     },
     SplashScreen: {
       launchShowDuration: 2200,
