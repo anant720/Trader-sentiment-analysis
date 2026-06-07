@@ -7,7 +7,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  updateProfile
+  updateProfile,
+  signInWithCredential
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { ALLOWED_EMAIL_DOMAINS } from '../config/constants';
