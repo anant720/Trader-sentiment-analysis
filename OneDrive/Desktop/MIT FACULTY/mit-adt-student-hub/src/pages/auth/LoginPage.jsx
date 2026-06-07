@@ -8,11 +8,8 @@ import arcusLogo from '../../assets/arcus_logo.png';
 export default function LoginPage() {
   const navigate = useNavigate();
   const signInWithGoogle = useAuthStore(s => s.signInWithGoogle);
-  const loginWithEmail = useAuthStore(s => s.loginWithEmail);
   const isLoading = useAuthStore(s => s.isLoading);
   const error = useAuthStore(s => s.error);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleGoogleLogin = async () => {
     await Haptics.impact({ style: ImpactStyle.Medium });
@@ -20,13 +17,6 @@ export default function LoginPage() {
     if (res.success) {
       navigate('/');
     }
-  };
-
-  const handleEmailLogin = async (e) => {
-    e.preventDefault();
-    await Haptics.impact({ style: ImpactStyle.Medium });
-    const res = await loginWithEmail({ email, password });
-    if (res.success) navigate('/');
   };
 
   return (
@@ -63,53 +53,17 @@ export default function LoginPage() {
             Sign in
           </h1>
           <p className="text-gray-500 text-sm mt-2">
-            Use email/password or continue with Google.
+            Continue with Google to access your account.
           </p>
 
-          <form onSubmit={handleEmailLogin} className="mt-8 space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Email</label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                placeholder="you@example.com"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Password</label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                placeholder="••••••••"
-              />
-            </div>
-            <button type="submit" disabled={isLoading} className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors">
-              {isLoading ? 'Signing in...' : 'Sign in'}
-            </button>
-          </form>
 
-          {error && (
-            <div className="w-full p-4 mt-6 bg-red-50 rounded-lg border border-red-100">
-              <p className="text-red-600 text-sm font-medium text-center">{error}</p>
-            </div>
-          )}
 
           <div className="mt-8">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200" />
+            {error && (
+              <div className="w-full p-4 mb-6 bg-red-50 rounded-lg border border-red-100">
+                <p className="text-red-600 text-sm font-medium text-center">{error}</p>
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-              </div>
-            </div>
-
+            )}
             <div className="mt-6">
               <button
                 onClick={handleGoogleLogin}
@@ -121,13 +75,10 @@ export default function LoginPage() {
                   alt="Google"
                   className="w-5 h-5"
                 />
-                {isLoading ? 'Signing in...' : 'Google'}
+                {isLoading ? 'Signing in...' : 'Sign in with Google'}
               </button>
             </div>
-            
-            <p className="text-gray-500 text-sm text-center mt-8">
-              New user? <button onClick={() => navigate('/signup')} className="text-indigo-600 font-semibold hover:text-indigo-500">Create account</button>
-            </p>
+
           </div>
         </div>
       </div>
