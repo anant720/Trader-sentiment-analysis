@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Productivity &amp; Tasks</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#722b00",
+                        "outline": "#727784",
+                        "inverse-on-surface": "#eff1f4",
+                        "background": "#f7f9fc",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#424752",
+                        "on-tertiary-container": "#ffc2a7",
+                        "on-background": "#191c1e",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed": "#351000",
+                        "on-primary-container": "#bbd0ff",
+                        "tertiary-container": "#983c00",
+                        "surface-dim": "#d8dadd",
+                        "secondary": "#4c5e84",
+                        "surface-container-low": "#f2f4f7",
+                        "primary-container": "#0056b3",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#115cb9",
+                        "primary-fixed-dim": "#acc7ff",
+                        "surface": "#f7f9fc",
+                        "on-secondary-fixed": "#041b3c",
+                        "surface-bright": "#f7f9fc",
+                        "on-primary-fixed-variant": "#004491",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#475a7f",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "secondary-fixed": "#d7e2ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-variant": "#e0e3e6",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#bfd2fd",
+                        "surface-container": "#eceef1",
+                        "primary": "#003f87",
+                        "on-primary-fixed": "#001a40",
+                        "inverse-primary": "#acc7ff",
+                        "outline-variant": "#c2c6d4",
+                        "secondary-fixed-dim": "#b3c7f1",
+                        "surface-container-high": "#e6e8eb",
+                        "on-secondary-fixed-variant": "#34476a",
+                        "primary-fixed": "#d7e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col pt-16 pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 flex flex-col">
+<div class="flex items-center justify-between px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Student Profile Photo" class="w-full h-full object-cover" data-alt="Portrait of a young smiling student wearing a casual sweater against a bright blurred university background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQbaYoY9xrynXsbMG9rAqCp8zCsjKCawjj-3XBKGLjPAb4z6l4kQ-24nsMco-gab-1ULxXJnnw-0qPFRFOWeB4ovzwTFNsO9u8iXpzq1unh3-Sg-e6sCAu1Dd4pGQgRsADBMvIeROAZgQyHLhHofHmFQZ9BEpUYziA0fkVbNxvPLHxuya4NumthZYBWdKgeBUzOrhCtr4KoFG0SxgUYkSWgmqUGNR85blS56nQAOnCYDWl5xmSEgSFZecfHWJBnhp3ViPNmEMRK0ab"/>
+</div>
+<h1 class="font-['Inter'] font-bold tracking-tighter text-on-surface text-xl">Student Hub</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-blue-800 dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-300 ease-in-out active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] w-full absolute bottom-0"></div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 md:px-6 py-8 flex flex-col gap-8 relative">
+<!-- Page Title -->
+<div class="flex flex-col gap-2 pt-4">
+<h2 class="text-3xl font-black tracking-tight text-on-surface">My Tasks</h2>
+<p class="text-on-surface-variant font-medium">Prioritize and conquer your week.</p>
+</div>
+<!-- Task List Container (High-Density Cards) -->
+<div class="flex flex-col gap-3 w-full max-w-3xl">
+<!-- Task Item 1: High Priority / Due Soon -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex items-start gap-4 shadow-[0_4px_20px_0_rgba(25,28,30,0.04)] relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="pt-1">
+<button class="w-6 h-6 rounded-full border-2 border-outline flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<!-- Checkbox area -->
+</button>
+</div>
+<div class="flex flex-col flex-grow gap-1">
+<h3 class="text-lg font-bold text-on-surface leading-tight">Submit Design Specs</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="error" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="text-xs font-bold uppercase tracking-widest text-tertiary">Due Today • 11:59 PM</span>
+</div>
+<p class="text-sm text-on-surface-variant mt-1">Finalize Figma components and export assets for the dev team.</p>
+</div>
+</div>
+<!-- Task Item 2: Standard -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex items-start gap-4 shadow-[0_4px_20px_0_rgba(25,28,30,0.04)] hover:bg-surface-container-low transition-colors group">
+<div class="pt-1">
+<button class="w-6 h-6 rounded-full border-2 border-outline flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<!-- Checkbox area -->
+</button>
+</div>
+<div class="flex flex-col flex-grow gap-1">
+<h3 class="text-lg font-bold text-on-surface leading-tight">Library Return</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="calendar_today">calendar_today</span>
+<span class="text-xs font-bold uppercase tracking-widest text-outline">Tomorrow</span>
+</div>
+<p class="text-sm text-on-surface-variant mt-1">Return "Advanced Algorithms" and "Modern Native UI".</p>
+</div>
+</div>
+<!-- Task Item 3: Standard -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex items-start gap-4 shadow-[0_4px_20px_0_rgba(25,28,30,0.04)] hover:bg-surface-container-low transition-colors group">
+<div class="pt-1">
+<button class="w-6 h-6 rounded-full border-2 border-outline flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<!-- Checkbox area -->
+</button>
+</div>
+<div class="flex flex-col flex-grow gap-1">
+<h3 class="text-lg font-bold text-on-surface leading-tight">Review Peer Essays</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="calendar_today">calendar_today</span>
+<span class="text-xs font-bold uppercase tracking-widest text-outline">Friday</span>
+</div>
+</div>
+</div>
+<!-- Task Item 4: Completed (Visual Distinction) -->
+<div class="bg-surface-container-low/50 rounded-xl p-4 flex items-start gap-4 shadow-[0_4px_20px_0_rgba(25,28,30,0.02)] opacity-75">
+<div class="pt-1">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+</div>
+</div>
+<div class="flex flex-col flex-grow gap-1">
+<h3 class="text-lg font-medium text-on-surface-variant line-through decoration-outline/50 leading-tight">Register for Next Semester</h3>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<div class="fixed bottom-24 md:bottom-8 right-4 md:right-8 z-40">
+<button class="w-14 h-14 rounded-full bg-gradient-to-b from-primary to-primary-container text-on-primary shadow-lg flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined text-2xl" data-icon="add">add</span>
+</button>
+</div>
+<!-- Language Switcher (Bottom subtle trigger) -->
+<div class="fixed bottom-24 md:bottom-8 left-4 md:left-8 z-40 hidden md:block">
+<button class="flex items-center gap-2 px-3 py-2 rounded-full bg-white border border-outline-variant/30 text-on-surface-variant text-sm font-medium hover:bg-surface-container-highest transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="language">language</span>
+<span>English (US)</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-20 z-50 flex justify-around items-center px-4 pb-safe bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800" style="background-color: #ffffff;">
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200 w-16 h-full">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="home">home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200 w-16 h-full">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="search">search</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200 w-16 h-full">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="grid_view">grid_view</span>
+</button>
+<!-- Active Tab: Task -->
+<button class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 relative after:content-[''] after:absolute after:-bottom-2 after:w-1 after:h-1 after:bg-blue-700 after:rounded-full hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200 w-16 h-full">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="task_alt" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200 w-16 h-full">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="person">person</span>
+</button>
+</nav>
+</body></html>

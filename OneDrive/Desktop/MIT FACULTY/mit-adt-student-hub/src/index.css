@@ -1,0 +1,1067 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DESIGN TOKENS — MIT ADT Student Hub
+   Apple HIG × Material You — Premium iOS-native feel
+   ============================================================ */
+
+:root {
+  /* ── Colour Palette (SaaS) ── */
+  --bg-primary:       #F9FAFB;          /* Light gray background */
+  --bg-secondary:     #FFFFFF;          /* White cards */
+  --bg-elevated:      #FFFFFF;          /* Modals */
+  --accent:           #4F46E5;          /* Indigo 600 */
+  --accent-soft:      #EEF2FF;          /* Indigo 50 */
+  --text-primary:     #111827;          /* Gray 900 */
+  --text-secondary:   #6B7280;          /* Gray 500 */
+  --text-tertiary:    #9CA3AF;          /* Gray 400 */
+  --separator:        rgba(17, 24, 39, 0.08); /* Gray 900 at 8% */
+  --danger:           #EF4444;          /* Red 500 */
+  --success:          #10B981;          /* Emerald 500 */
+
+  /* ── Shadows (Web native) ── */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* ── Radius (Sharp but friendly) ── */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  /* ── Legacy aliases kept so existing Tailwind inline vars still resolve ── */
+  --color-bg:             var(--bg-primary);
+  --color-bg-secondary:   var(--bg-secondary);
+  --color-text:           var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-primary:        var(--accent);
+  --color-primary-light:  #6366F1;
+  --color-border:         var(--separator);
+  --color-icon:           var(--text-tertiary);
+  --color-card-highlight: var(--accent-soft);
+  --color-navy:           #111827;
+
+  /* ── Spacing ── */
+  --nav-height:   64px;
+  --safe-top:     env(safe-area-inset-top, 0px);
+  --safe-bottom:  env(safe-area-inset-bottom, 0px);
+
+  /* ── Motion easing ── */
+  --ease-ios: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark {
+  --bg-primary:       #030712;
+  --bg-secondary:     #111827;
+  --bg-elevated:      #1F2937;
+  --text-primary:     #F9FAFB;
+  --text-secondary:   #9CA3AF;
+  --text-tertiary:    #4B5563;
+  --separator:        rgba(255, 255, 255, 0.1);
+  
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2);
+  
+  --color-primary-light: #818CF8;
+}
+
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Typography scale ── */
+
+h1 {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.4px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.3px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+p {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* ============================================================
+   SCROLLBAR HIDE
+   ============================================================ */
+
+.scroll-hide::-webkit-scrollbar,
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-hide,
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================================
+   PAGE ENTRY ANIMATION
+   ============================================================ */
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+.page-enter {
+  animation: pageIn 280ms var(--ease-ios) both;
+}
+
+/* ============================================================
+   BOTTOM NAVIGATION BAR
+   ============================================================ */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  padding: 0 12px;
+  padding-bottom: max(12px, var(--safe-bottom));
+  z-index: 50;
+}
+
+.bottom-nav > div,
+nav.fixed > div {
+  height: 60px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.nav-item,
+nav.fixed a {
+  flex: 1;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: var(--radius-md);
+  transition: background 150ms var(--ease-ios);
+  text-decoration: none;
+}
+
+.nav-item:active,
+nav.fixed a:active {
+  transform: scale(0.93);
+  transition: transform 100ms var(--ease-ios);
+}
+
+.nav-label,
+nav.fixed a span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* ============================================================
+   CARDS & LIST ITEMS
+   ============================================================ */
+
+.card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+}
+
+/* Grouped iOS-style inset list — sections in ProfilePage, AdminPage */
+section.bg-white,
+.card-group {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: none !important;
+  overflow: hidden;
+}
+
+/* Internal dividers inside grouped lists */
+.h-px.bg-black\/\[0\.04\],
+.divide-y > * + * {
+  border-top: 1px solid var(--separator);
+  margin: 0;
+  height: auto;
+  background: none;
+}
+
+/* ── Faculty card row ── */
+.faculty-row,
+div[class*="flex items-center gap-4 p-4 rounded"] {
+  padding: 14px 16px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: background 150ms var(--ease-ios), transform 100ms var(--ease-ios);
+}
+
+div[class*="flex items-center gap-4 p-4 rounded"]:active {
+  background: rgba(0, 0, 0, 0.04);
+  transform: scale(0.985);
+}
+
+/* ── Avatar / initials circle ── */
+.avatar,
+div[class*="w-12 h-12 rounded-full bg-gradient"] {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  background: var(--accent-soft) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+div[class*="w-12 h-12 rounded-full bg-gradient"] span {
+  color: var(--accent) !important;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+/* Primary */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 24px;
+  background: var(--accent);
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  border-radius: var(--radius-sm);
+  border: none;
+  box-shadow: none;
+  transition: opacity 100ms var(--ease-ios), transform 100ms var(--ease-ios);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:active,
+.btn-primary:disabled {
+  opacity: 0.75;
+  transform: scale(0.97);
+}
+
+.btn-primary:disabled {
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary */
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 24px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: none;
+  transition: opacity 100ms var(--ease-ios), transform 100ms var(--ease-ios);
+  cursor: pointer;
+}
+
+.btn-secondary:active {
+  opacity: 0.75;
+  transform: scale(0.97);
+}
+
+/* Ghost */
+.btn-ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 24px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 17px;
+  font-weight: 600;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  transition: opacity 100ms var(--ease-ios), transform 100ms var(--ease-ios);
+  cursor: pointer;
+}
+
+.btn-ghost:active {
+  opacity: 0.75;
+  transform: scale(0.97);
+}
+
+/* Active/tap state for all interactive elements */
+button:active:not(:disabled) {
+  transition: transform 100ms var(--ease-ios), opacity 100ms var(--ease-ios);
+}
+
+/* ============================================================
+   INPUTS & SEARCH
+   ============================================================ */
+
+.input-field {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  background: rgba(118, 118, 128, 0.12);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text-primary);
+  outline: none;
+  box-shadow: none;
+  transition: background 150ms var(--ease-ios);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input-field::placeholder {
+  color: var(--text-tertiary);
+}
+
+.input-field:focus {
+  background: rgba(118, 118, 128, 0.16);
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* Multi-line textarea variant */
+textarea.input-field {
+  height: auto;
+  padding: 12px;
+  resize: none;
+  line-height: 1.5;
+}
+
+/* Search bar override — faculty page uses bespoke search div */
+div[class*="relative h-\[56px\] rounded"],
+div[class*="relative"][class*="search"] {
+  background: rgba(118, 118, 128, 0.12) !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+  height: 44px !important;
+  transition: background 150ms var(--ease-ios);
+}
+
+div[class*="relative h-\[56px\] rounded"]:focus-within {
+  background: rgba(118, 118, 128, 0.16) !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================
+   FILTER CHIPS / TAGS
+   ============================================================ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  border: none;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: background 150ms var(--ease-ios), color 150ms var(--ease-ios),
+              transform 100ms var(--ease-ios);
+  flex-shrink: 0;
+}
+
+.chip:active {
+  transform: scale(0.95);
+}
+
+.chip-active,
+.chip.chip-active {
+  background: var(--accent) !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+/* Tag / badge */
+.badge,
+span[class*="rounded-full"][class*="bg-"] {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* ============================================================
+   SECTION HEADERS  (e.g. "REPORTS", "USERS" labels)
+   ============================================================ */
+
+.section-header {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: 24px 16px 8px;
+}
+
+/* ============================================================
+   STICKY PAGE HEADERS (faculty, tasks, profile)
+   ============================================================ */
+
+div[class*="sticky top-0 z-20"] {
+  background: rgba(242, 242, 247, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--separator) !important;
+}
+
+/* ============================================================
+   MODALS & SHEETS
+   ============================================================ */
+
+/* Overlay */
+.fixed.inset-0.z-50 > div[class*="absolute inset-0"] {
+  background: rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Modal card */
+.fixed.inset-0.z-50 > div[class*="relative w-full"] {
+  background: var(--bg-elevated) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-md) !important;
+  border: none !important;
+}
+
+/* Modal header */
+.fixed.inset-0.z-50 div[class*="flex items-center justify-between px-6"] {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--separator) !important;
+  padding: 20px 24px 16px !important;
+}
+
+/* Modal close button */
+.fixed.inset-0.z-50 button[class*="w-8 h-8 rounded-full"] {
+  background: rgba(118, 118, 128, 0.12) !important;
+  border: none !important;
+}
+
+/* Bottom sheet overlay */
+.bottom-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Bottom sheet panel */
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 70;
+  border-radius: 28px 28px 0 0;
+  background: var(--bg-elevated);
+  padding-bottom: var(--safe-bottom);
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Sheet handle */
+.sheet-handle {
+  width: 36px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--separator);
+  margin: 12px auto 8px;
+}
+
+/* ============================================================
+   AUTH PAGES  (Login, Signup, Onboarding, SetPassword)
+   ============================================================ */
+
+/* Auth page root */
+div[class*="min-h-screen flex flex-col bg-\[#FFFFFF\]"],
+div[class*="min-h-screen flex flex-col bg-white"] {
+  background: var(--bg-secondary) !important;
+}
+
+/* Auth large title */
+div[class*="min-h-screen flex flex-col"] h1 {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--text-primary);
+}
+
+/* Auth subtitle */
+div[class*="min-h-screen flex flex-col"] p[class*="text-\[#5483B3\]"],
+div[class*="min-h-screen flex flex-col"] p[class*="text-\[16px\]"] {
+  color: var(--text-secondary) !important;
+  font-size: 17px !important;
+}
+
+/* Auth form labels */
+label[class*="text-\[#5483B3\]"] {
+  color: var(--text-secondary) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Back button on auth pages */
+button[class*="flex items-center gap-1"][class*="text-\[#052659\]"] {
+  color: var(--accent) !important;
+  font-size: 17px !important;
+  font-weight: 400 !important;
+}
+
+/* Google sign-in button */
+button[class*="shadow-\[0_4px_0_\#021024\]"] {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--separator) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-sm) !important;
+  height: 50px !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  transition: opacity 100ms var(--ease-ios), transform 100ms var(--ease-ios) !important;
+}
+
+button[class*="shadow-\[0_4px_0_\#021024\]"]:active {
+  opacity: 0.75 !important;
+  transform: scale(0.97) !important;
+}
+
+/* Auth error box */
+div[class*="bg-\[#F2F2F7\] rounded-2xl border border-\[#7DA0CA\]"] {
+  background: rgba(255, 69, 58, 0.08) !important;
+  border: 1px solid rgba(255, 69, 58, 0.2) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+div[class*="bg-\[#F2F2F7\] rounded-2xl border border-\[#7DA0CA\]"] p {
+  color: var(--danger) !important;
+}
+
+/* ============================================================
+   HERO CARD (HubPage welcome banner)
+   ============================================================ */
+
+div[class*="rounded-\[32px\]"][class*="bg-gradient-to-br from-\[var\(--color-primary-light\)\]"] {
+  border-radius: var(--radius-xl) !important;
+  background: linear-gradient(160deg, var(--accent) 0%, #0060CC 100%) !important;
+  box-shadow: var(--shadow-md) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================================================
+   LOADING STATES
+   ============================================================ */
+
+/* Spinner */
+div[class*="animate-spin"] {
+  animation: spin 0.8s linear infinite;
+  border-color: var(--separator) var(--separator) var(--separator) var(--accent) !important;
+}
+
+/* Skeleton pulse */
+div[class*="animate-pulse"] {
+  animation: pulse 1.6s ease-in-out infinite;
+  background: rgba(118, 118, 128, 0.1) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================
+   SIGN OUT / DANGER BUTTON  (ProfilePage)
+   ============================================================ */
+
+button[class*="bg-red-50"][class*="text-red-600"] {
+  background: rgba(255, 69, 58, 0.08) !important;
+  color: var(--danger) !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  height: 50px !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  margin-top: 32px !important;
+  transition: opacity 100ms var(--ease-ios), transform 100ms var(--ease-ios) !important;
+}
+
+button[class*="bg-red-50"][class*="text-red-600"]:active {
+  opacity: 0.75 !important;
+  transform: scale(0.97) !important;
+}
+
+/* ============================================================
+   ADMIN PAGE
+   ============================================================ */
+
+/* Admin command center header */
+div[class*="sticky top-0 z-10"][class*="bg-white"] {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--separator) !important;
+  box-shadow: none !important;
+}
+
+/* Admin tab buttons */
+button[class*="rounded-xl text-xs font-bold"][class*="bg-zinc-900"],
+button[class*="rounded-xl text-xs font-bold"][class*="bg-white"] {
+  height: 34px;
+  border-radius: 100px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: background 150ms var(--ease-ios), color 150ms var(--ease-ios) !important;
+}
+
+/* Active admin tab */
+button[class*="bg-zinc-900 text-white"],
+button[class*="bg-white dark:bg-white dark:text-black"] {
+  background: var(--accent) !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+/* Admin report cards */
+div[class*="p-4 bg-white"][class*="rounded-2xl border"] {
+  background: var(--bg-secondary) !important;
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* Admin table */
+table {
+  border-collapse: collapse;
+}
+
+thead tr {
+  background: var(--bg-primary) !important;
+}
+
+thead th {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: var(--text-tertiary) !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  padding: 12px 16px !important;
+}
+
+tbody tr {
+  transition: background 150ms var(--ease-ios);
+  border-top: 1px solid var(--separator) !important;
+}
+
+tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+tbody td {
+  padding: 14px 16px !important;
+}
+
+/* ============================================================
+   CONTENT CARDS (Announcements / Events on Hub)
+   ============================================================ */
+
+/* Announcement card */
+button[class*="snap-start shrink-0 w-\[280px\] bg-white"] {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: none !important;
+  padding: 20px !important;
+  transition: transform 100ms var(--ease-ios), box-shadow 100ms var(--ease-ios);
+}
+
+button[class*="snap-start shrink-0 w-\[280px\] bg-white"]:active {
+  transform: scale(0.96);
+  box-shadow: none !important;
+}
+
+/* Event card */
+button[class*="snap-start shrink-0 w-\[280px\] bg-gradient"] {
+  border-radius: var(--radius-lg) !important;
+  border: none !important;
+  padding: 20px !important;
+  background: var(--accent-soft) !important;
+  transition: transform 100ms var(--ease-ios);
+}
+
+button[class*="snap-start shrink-0 w-\[280px\] bg-gradient"]:active {
+  transform: scale(0.96);
+}
+
+/* ============================================================
+   PROFILE PAGE — info rows
+   ============================================================ */
+
+/* Profile row tap state */
+button[class*="w-full px-5 py-4 flex items-center"]:active {
+  background: rgba(0, 0, 0, 0.04) !important;
+  transition: background 150ms var(--ease-ios);
+}
+
+/* Profile icon circles */
+div[class*="w-9 h-9 rounded-full bg-\[var\(--color-bg\)\]"] {
+  background: var(--accent-soft) !important;
+  color: var(--accent) !important;
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   TASKS PAGE
+   ============================================================ */
+
+/* Task add button */
+button[class*="w-12 h-12 rounded-\[20px\] bg-gradient-to-br"] {
+  background: var(--accent) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+  width: 44px !important;
+  height: 44px !important;
+  transition: opacity 100ms var(--ease-ios), transform 100ms var(--ease-ios) !important;
+}
+
+button[class*="w-12 h-12 rounded-\[20px\] bg-gradient-to-br"]:active {
+  opacity: 0.75 !important;
+  transform: scale(0.95) !important;
+}
+
+/* ============================================================
+   FACULTY DETAIL SHEET (bottom sheet)
+   ============================================================ */
+
+/* The sheet itself */
+div[class*="fixed bottom-0"][class*="rounded-t"] {
+  background: var(--bg-elevated) !important;
+  border-radius: 28px 28px 0 0 !important;
+  box-shadow: 0 -2px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ============================================================
+   LIST STAGGER ANIMATION on mount
+   ============================================================ */
+
+div[class*="space-y-4"] > div,
+div[class*="space-y-3"] > div,
+div[class*="space-y-4"] > button {
+  animation: fadeInUp 280ms var(--ease-ios) both;
+}
+
+div[class*="space-y-4"] > div:nth-child(2),
+div[class*="space-y-4"] > button:nth-child(2) { animation-delay: 40ms; }
+div[class*="space-y-4"] > div:nth-child(3),
+div[class*="space-y-4"] > button:nth-child(3) { animation-delay: 80ms; }
+div[class*="space-y-4"] > div:nth-child(4),
+div[class*="space-y-4"] > button:nth-child(4) { animation-delay: 120ms; }
+div[class*="space-y-4"] > div:nth-child(5),
+div[class*="space-y-4"] > button:nth-child(5) { animation-delay: 160ms; }
+div[class*="space-y-4"] > div:nth-child(n+6),
+div[class*="space-y-4"] > button:nth-child(n+6) { animation-delay: 200ms; }
+
+/* ============================================================
+   DESKTOP — max 680px content width
+   ============================================================ */
+
+@media (min-width: 680px) {
+  body {
+    background: var(--bg-primary);
+  }
+
+  #root {
+    max-width: 680px;
+    margin: 0 auto;
+    box-shadow: 0 0 0 1px var(--separator);
+    min-height: 100dvh;
+    background: var(--bg-secondary);
+  }
+
+  .bottom-nav,
+  nav.fixed {
+    max-width: 680px;
+  }
+}
+
+/* ============================================================
+   DARK MODE — intentionally light only per iOS design spec
+   Since the app uses Tailwind dark: variants in JSX,
+   we neutralise them to keep the premium light aesthetic.
+   If you want dark mode later, remove this block.
+   ============================================================ */
+
+@media (prefers-color-scheme: dark) {
+  /* Override dark mode — keep app always light for now */
+  :root {
+    color-scheme: light;
+  }
+}
+
+/* ============================================================
+   ARCUS BRANDING LOGO SIZES & SPLASH SCREEN
+   ============================================================ */
+
+.arcus-logo {
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.arcus-logo--nav     { width: 32px;  height: 32px;  }
+.arcus-logo--splash  { width: 72px;  height: 72px;  }
+.arcus-logo--sidebar { width: 36px;  height: 36px;  }
+.arcus-logo--hero    { width: 56px;  height: 56px;  }
+.arcus-logo--footer  { width: 24px;  height: 24px;  }
+.arcus-logo--appicon { width: 80px;  height: 80px;  }
+
+.arcus-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #F2F2F7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              visibility 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.arcus-splash.arcus-splash--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.arcus-splash__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logo rises up and scales in */
+.arcus-splash__logo-wrap {
+  opacity: 0;
+  transform: translateY(20px) scale(0.85);
+  animation: arcusSplashRise 650ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+             120ms forwards;
+}
+
+/* Wordmark fades up after logo settles */
+.arcus-splash__wordmark {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+               'Segoe UI', sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  color: #1C1C1E;
+  letter-spacing: -0.8px;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: arcusSplashRise 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+             420ms forwards;
+}
+
+/* Tagline fades in last */
+.arcus-splash__tagline {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+               sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: #AEAEB2;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: arcusSplashFade 400ms ease
+             700ms forwards;
+}
+
+/* Progress bar track */
+.arcus-splash__bar-wrap {
+  position: absolute;
+  bottom: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: rgba(10, 132, 255, 0.12);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+/* Progress bar fill */
+.arcus-splash__bar {
+  height: 100%;
+  width: 0%;
+  background: #0A84FF;
+  border-radius: 100px;
+  animation: arcusSplashLoad 1900ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+             180ms forwards;
+}
+
+/* Keyframes */
+@keyframes arcusSplashRise {
+  to {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes arcusSplashFade {
+  to { opacity: 1; }
+}
+
+@keyframes arcusSplashLoad {
+  0%   { width: 0%;   }
+  25%  { width: 22%;  }
+  50%  { width: 55%;  }
+  75%  { width: 78%;  }
+  90%  { width: 91%;  }
+  100% { width: 100%; }
+}
+

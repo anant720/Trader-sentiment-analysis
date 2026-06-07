@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MIT ADT Student Hub - Events</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#983c00",
+                        "tertiary-fixed": "#ffdbcc",
+                        "secondary": "#4c5e84",
+                        "background": "#f7f9fc",
+                        "surface-dim": "#d8dadd",
+                        "surface-bright": "#f7f9fc",
+                        "surface": "#f7f9fc",
+                        "on-secondary-container": "#475a7f",
+                        "surface-container-high": "#e6e8eb",
+                        "on-surface-variant": "#424752",
+                        "primary": "#003f87",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "secondary-fixed-dim": "#b3c7f1",
+                        "secondary-fixed": "#d7e2ff",
+                        "secondary-container": "#bfd2fd",
+                        "outline-variant": "#c2c6d4",
+                        "on-primary-fixed-variant": "#004491",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "primary-fixed": "#d7e2ff",
+                        "primary-fixed-dim": "#acc7ff",
+                        "primary-container": "#0056b3",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#acc7ff",
+                        "inverse-on-surface": "#eff1f4",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#351000",
+                        "on-surface": "#191c1e",
+                        "on-primary-container": "#bbd0ff",
+                        "surface-tint": "#115cb9",
+                        "surface-container-low": "#f2f4f7",
+                        "on-tertiary-container": "#ffc2a7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#eceef1",
+                        "on-secondary-fixed": "#041b3c",
+                        "on-secondary-fixed-variant": "#34476a",
+                        "on-primary-fixed": "#001a40",
+                        "surface-container-highest": "#e0e3e6",
+                        "outline": "#727784",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary": "#722b00",
+                        "surface-variant": "#e0e3e6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 md:pb-0 pt-16 md:pt-20">
+<header class="fixed top-0 w-full z-50 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 transition-all duration-300 ease-in-out">
+<div class="flex items-center justify-between px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<img alt="student profile photo" class="w-8 h-8 rounded-full object-cover" data-alt="close up portrait of a young male student smiling naturally in warm daylight with blurred university background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRwr_olVl4qcgL8HxVF1efWr2F98jiDXfWC4N1AggRjKzS_8FrE49JTurRo--qJcxa9ciZ29c0XPLvSayBBqiIf6uSXq6_0EDn-9qzKP3RKONsVwY4iRK_HEFwBNqqJKuBvLuxxtpuhv5jXal0K0hdupmYL8ryBlmdlr8JjLNlr8j30qEPL6e0lMDV1xVI8ywUzm0tcAETX2pKVPsDwr--V7FtwFO29J7Pe7CXK1kvka8_aUj1ILVjQ_oC54e8igchif8k9MeHbDXo"/>
+<span class="text-xl font-black text-blue-900 dark:text-blue-200">Student Hub</span>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-500 font-medium hover:bg-slate-50 dark:hover:bg-slate-800/50 px-3 py-2 rounded-md transition-all duration-300 ease-in-out active:scale-95" href="#">Home</a>
+<a class="text-blue-700 font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 px-3 py-2 rounded-md transition-all duration-300 ease-in-out active:scale-95" href="#">Explore</a>
+<a class="text-slate-500 font-medium hover:bg-slate-50 dark:hover:bg-slate-800/50 px-3 py-2 rounded-md transition-all duration-300 ease-in-out active:scale-95" href="#">Classes</a>
+<a class="text-slate-500 font-medium hover:bg-slate-50 dark:hover:bg-slate-800/50 px-3 py-2 rounded-md transition-all duration-300 ease-in-out active:scale-95" href="#">Tasks</a>
+<a class="text-slate-500 font-medium hover:bg-slate-50 dark:hover:bg-slate-800/50 px-3 py-2 rounded-md transition-all duration-300 ease-in-out active:scale-95" href="#">Profile</a>
+</div>
+<button class="text-blue-800 dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-all duration-300 ease-in-out active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] w-full absolute bottom-0"></div>
+</header>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="text-4xl md:text-5xl font-black tracking-tighter text-on-surface mb-2">Campus Events</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl">Discover and register for upcoming cultural, academic, and sports events at MIT ADT.</p>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-primary text-on-primary font-bold text-sm tracking-wide transition-colors">All Events</button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:bg-surface-variant font-semibold text-sm tracking-wide transition-colors">Cultural</button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:bg-surface-variant font-semibold text-sm tracking-wide transition-colors">Academic</button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-surface-container-highest text-on-surface-variant hover:bg-surface-variant font-semibold text-sm tracking-wide transition-colors">Sports</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_0_rgba(25,28,30,0.04)] group flex flex-col h-full relative">
+<div class="relative h-64 w-full overflow-hidden">
+<img alt="Cultural Fest" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="vibrant energetic crowd at a university cultural festival concert stage with bright dynamic lighting and raised hands" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu29ugK29jOl7wDHkyf6mh6yQ31CmfiMV6qlbG6zw2gnQTcMD0uZtm58wmBgbJh7Bh4cIkROwWL-HDYgphAj1NEA02OCYPwDJldbZrS-jmfkfMCosHhg49GFExeOZq581slSlYpLBo4nFomHwmUOA5YMxzGxljM5hNTB94GyXOqGqA0acXFR2s4Tki-sIL8MyKMi5_8BkR9ctdHFdIwqnHGOTiseIzwXIiHGKSSfVihZzToTbnzMjwIsnlhr_Iv1oWioZvbo6Kn9Lq"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4 bg-white px-3 py-1.5 rounded-md text-xs font-bold tracking-widest text-primary uppercase shadow-sm">
+                        Cultural
+                    </div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<div class="flex items-start justify-between gap-4 mb-4">
+<h2 class="text-xl font-bold text-on-surface leading-tight">Persona 2024 - Annual Cultural Fest</h2>
+<div class="flex flex-col items-center justify-center bg-surface-container-low px-3 py-2 rounded-lg text-center min-w-[3.5rem]">
+<span class="text-xs font-bold text-tertiary uppercase">Oct</span>
+<span class="text-xl font-black text-on-surface leading-none mt-0.5">15</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">The biggest cultural extravaganza of the year. Music, dance, theater, and endless celebrations across the campus.</p>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div class="flex items-center text-on-surface-variant text-sm font-medium gap-1.5">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+                            6:00 PM - 11:00 PM
+                        </div>
+<button class="bg-gradient-to-b from-primary to-primary-container text-on-primary px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Register</button>
+</div>
+</div>
+</article>
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_0_rgba(25,28,30,0.04)] group flex flex-col h-full relative">
+<div class="relative h-64 w-full overflow-hidden">
+<img alt="Tech Symposium" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="modern futuristic auditorium with a glowing screen showing data visualizations and attentive students in silhouette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdR4TQVng0pRiUBk4Il8E8aEIYunHTwqo5NJyZ_kAYBSvFZBNuB9LIxwjYjbt6dLJ7_PCRepo5tlOJ24iMilstuM-aiIntf4CZAYMlbAjDID2KqesQSbloTGusXDFwW_1xXWDj23NgQ4_SP3YFDSr1fKKdG_my-MlY0Zn7N0vNqsju_K9imXHlk4TIyti0jLdBEkRJSOS41lKnByp0Ftjy3GrenbGSDAg_o5mM6UjfkpnKV2YwTmQ3eJjm6-Asj8-TkRDhyWondaZB"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4 bg-white px-3 py-1.5 rounded-md text-xs font-bold tracking-widest text-primary uppercase shadow-sm">
+                        Academic
+                    </div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<div class="flex items-start justify-between gap-4 mb-4">
+<h2 class="text-xl font-bold text-on-surface leading-tight">AI &amp; Future Tech Symposium</h2>
+<div class="flex flex-col items-center justify-center bg-surface-container-low px-3 py-2 rounded-lg text-center min-w-[3.5rem]">
+<span class="text-xs font-bold text-tertiary uppercase">Oct</span>
+<span class="text-xl font-black text-on-surface leading-none mt-0.5">22</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Join industry leaders for a deep dive into generative AI, machine learning advancements, and the future of computing.</p>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div class="flex items-center text-on-surface-variant text-sm font-medium gap-1.5">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Main Auditorium
+                        </div>
+<button class="bg-gradient-to-b from-primary to-primary-container text-on-primary px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Register</button>
+</div>
+</div>
+</article>
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_0_rgba(25,28,30,0.04)] group flex flex-col h-full relative">
+<div class="relative h-64 w-full overflow-hidden">
+<img alt="Sports Meet" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="dramatic low angle shot of a runner on an athletics track during sunset with intense warm light and long shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_FjK7Rs5k2-YT8AGeG-rhA_ZRtX5UC36dR8bf6eQB-LHPjUNytxY28NVQpZVZTMWFmgwmLDVgm8ojkKm3RlQ0ztda42zMdxMAcpTrC4i5WbF26TCKinnvbShDxyO9zTNzB3YwFvKu148upO4hBgoHgoLlx71rhU05bMKqedIX2Lkq7XR5qLY6Fh-2RZD6b98gL7lBBhKncjB3Y9W2nAko3kK65R288xE4KiiBZuvJugqjCsZP0v7YjKuVLVVfeLx0mXRs61CGySr"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4 bg-white px-3 py-1.5 rounded-md text-xs font-bold tracking-widest text-primary uppercase shadow-sm">
+                        Sports
+                    </div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<div class="flex items-start justify-between gap-4 mb-4">
+<h2 class="text-xl font-bold text-on-surface leading-tight">Inter-Department Athletics Meet</h2>
+<div class="flex flex-col items-center justify-center bg-surface-container-low px-3 py-2 rounded-lg text-center min-w-[3.5rem]">
+<span class="text-xs font-bold text-tertiary uppercase">Nov</span>
+<span class="text-xl font-black text-on-surface leading-none mt-0.5">05</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Track and field events, relay races, and team sports. Compete for your department's glory and the championship trophy.</p>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div class="flex items-center text-on-surface-variant text-sm font-medium gap-1.5">
+<span class="material-symbols-outlined text-[18px]">group</span>
+                            Open to All
+                        </div>
+<button class="bg-gradient-to-b from-primary to-primary-container text-on-primary px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Register</button>
+</div>
+</div>
+</article>
+</div>
+</main>
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-20 z-50 flex justify-around items-center px-4 pb-safe bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_0_rgba(25,28,30,0.04)]">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined font-[300]">home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 relative after:content-[''] after:absolute after:-bottom-2 after:w-1 after:h-1 after:bg-blue-700 after:rounded-full hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined font-[300]">grid_view</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined font-[300]">task_alt</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined font-[300]">person</span>
+</a>
+</nav>
+</body></html>

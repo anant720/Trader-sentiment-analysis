@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Faculty Detail Slide-up Sheet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#722b00",
+                        "outline": "#727784",
+                        "inverse-on-surface": "#eff1f4",
+                        "background": "#f7f9fc",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#424752",
+                        "on-tertiary-container": "#ffc2a7",
+                        "on-background": "#191c1e",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed": "#351000",
+                        "on-primary-container": "#bbd0ff",
+                        "tertiary-container": "#983c00",
+                        "surface-dim": "#d8dadd",
+                        "secondary": "#4c5e84",
+                        "surface-container-low": "#f2f4f7",
+                        "primary-container": "#0056b3",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#115cb9",
+                        "primary-fixed-dim": "#acc7ff",
+                        "surface": "#f7f9fc",
+                        "on-secondary-fixed": "#041b3c",
+                        "surface-bright": "#f7f9fc",
+                        "on-primary-fixed-variant": "#004491",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#475a7f",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "secondary-fixed": "#d7e2ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-variant": "#e0e3e6",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#bfd2fd",
+                        "surface-container": "#eceef1",
+                        "primary": "#003f87",
+                        "on-primary-fixed": "#001a40",
+                        "inverse-primary": "#acc7ff",
+                        "outline-variant": "#c2c6d4",
+                        "secondary-fixed-dim": "#b3c7f1",
+                        "surface-container-high": "#e6e8eb",
+                        "on-secondary-fixed-variant": "#34476a",
+                        "primary-fixed": "#d7e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-highest font-body text-on-surface h-screen w-full relative overflow-hidden flex flex-col justify-end">
+<!-- Background Context (Simulated Faculty Explore Hub) -->
+<div class="absolute inset-0 z-0 opacity-40 pointer-events-none flex flex-col">
+<div class="p-6">
+<div class="h-12 w-48 bg-surface-container-high rounded-lg mb-8"></div>
+<div class="grid grid-cols-2 gap-4">
+<div class="h-32 bg-surface-container-lowest rounded-xl"></div>
+<div class="h-32 bg-surface-container-lowest rounded-xl"></div>
+<div class="h-32 bg-surface-container-lowest rounded-xl"></div>
+<div class="h-32 bg-surface-container-lowest rounded-xl"></div>
+</div>
+</div>
+</div>
+<!-- Backdrop Overlay -->
+<div class="absolute inset-0 bg-on-surface/40 z-10"></div>
+<!-- Slide-up Bottom Sheet -->
+<div class="relative z-20 w-full max-w-2xl mx-auto bg-surface-container-lowest rounded-t-[2rem] shadow-[0_-8px_32px_rgba(25,28,30,0.12)] pb-safe pt-2 px-6 pb-10 mt-auto transform translate-y-0 transition-transform duration-300">
+<!-- Drag Handle Indicator -->
+<div class="w-12 h-1.5 bg-surface-variant rounded-full mx-auto mb-8"></div>
+<div class="flex flex-col items-center">
+<!-- Profile Photo -->
+<div class="w-28 h-28 rounded-full overflow-hidden border-4 border-surface-container-lowest shadow-[0_4px_20px_0_rgba(25,28,30,0.08)] -mt-16 mb-4 bg-surface-container-low">
+<img alt="Professional portrait of Dr. Sameer Patil, male wearing a suit and glasses, neutral background" class="w-full h-full object-cover" data-alt="Professional portrait of male professor wearing dark suit and tie, smiling warmly against neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJteI9gxpLrVQeoy15dx7mkBvOpKtDTle8oft4pDrYHg_hBW1cyHNrYrosk5ddZepiwmEvZfVrfFgsES2mtmOkTZaRL0FDxuXmM2BgiKHyYVH9kU149o04Oaen8EQkME7YNaYYkoBaNgjHodxbW3-ErqqJ3CQbHYQdTjzdjglk2P1kVoboue1EKsX5XZEFFb6MKdHqZjrp7_QCP-a3Tu4B8vE4eR9PHyRXiIdy9TrvNv7FTzgP_hP5UT8h3XRQQL4t7yLiiAGc6B0S"/>
+</div>
+<!-- Identity Core -->
+<h1 class="font-headline text-[1.5rem] font-bold tracking-tight text-on-surface mb-1">Dr. Sameer Patil</h1>
+<p class="font-body text-[1rem] text-on-surface-variant font-medium mb-6">Professor of Computer Science</p>
+<!-- Metadata Section (Bento style grid) -->
+<div class="w-full grid grid-cols-2 gap-4 mb-8">
+<!-- Department Card -->
+<div class="bg-surface-container-low rounded-xl p-4 flex flex-col justify-center">
+<span class="font-label text-[0.75rem] uppercase tracking-widest text-outline mb-1">Department</span>
+<span class="font-body text-sm font-semibold text-on-surface flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined text-[18px] text-primary" data-icon="computer">computer</span>
+                        Computer Science
+                    </span>
+</div>
+<!-- Room Card -->
+<div class="bg-surface-container-low rounded-xl p-4 flex flex-col justify-center">
+<span class="font-label text-[0.75rem] uppercase tracking-widest text-outline mb-1">Office Room</span>
+<span class="font-body text-sm font-semibold text-on-surface flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined text-[18px] text-primary" data-icon="door_open">door_open</span>
+                        S305
+                    </span>
+</div>
+</div>
+<!-- Action Area -->
+<div class="w-full mt-4">
+<button class="w-full bg-gradient-to-b from-primary to-primary-container text-on-primary font-headline font-bold text-base py-4 px-6 rounded-full shadow-[0_4px_12px_rgba(0,63,135,0.25)] flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]" data-icon="report" data-weight="fill" style="font-variation-settings: 'FILL' 1;">report</span>
+                    Report an Error
+                </button>
+</div>
+<!-- Dismiss action (Tertiary) -->
+<button class="mt-6 text-primary font-headline font-bold text-sm tracking-wide uppercase p-2 hover:bg-surface-container-low rounded-lg transition-colors">
+                Dismiss
+            </button>
+</div>
+</div>
+</body></html>

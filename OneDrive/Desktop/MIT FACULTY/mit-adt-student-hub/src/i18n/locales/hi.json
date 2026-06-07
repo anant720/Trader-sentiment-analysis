@@ -1,0 +1,95 @@
+{
+  "faculty": {
+    "title": "फैकल्टी खोज",
+    "search_placeholder": "नाम, कक्ष, विभाग खोजें...",
+    "filter_all": "सभी",
+    "floor": "मंज़िल",
+    "north": "उत्तर",
+    "south": "दक्षिण",
+    "cabin": "कक्ष",
+    "free_timings": "खाली समय",
+    "department": "विभाग",
+    "role": "पद",
+    "copy_cabin": "कक्ष कॉपी करें",
+    "copied": "कॉपी हो गया!",
+    "report_error": "गलती रिपोर्ट करें",
+    "hod": "विभागाध्यक्ष",
+    "dean": "डीन",
+    "vc": "कुलपति",
+    "pvc": "प्रो–कुलपति",
+    "no_results": "कोई फैकल्टी नहीं मिली",
+    "no_results_sub": "कोई अलग नाम या विभाग आज़माएं"
+  },
+  "report": {
+    "title": "गलती रिपोर्ट करें",
+    "subtitle": "डेटा सही रखने में मदद करें",
+    "type": "समस्या का प्रकार",
+    "description": "विवरण",
+    "description_placeholder": "गलती का विवरण दें (अधिकतम 500 अक्षर)...",
+    "submit": "रिपोर्ट भेजें",
+    "success": "रिपोर्ट भेज दी गई। धन्यवाद!",
+    "error": "भेजने में विफल। पुनः प्रयास करें।"
+  },
+  "tasks": {
+    "title": "मेरे कार्य",
+    "add_task": "कार्य जोड़ें",
+    "edit_task": "कार्य संपादित करें",
+    "task_title": "शीर्षक",
+    "subject": "विषय",
+    "due_date": "अंतिम तिथि",
+    "priority": "प्राथमिकता",
+    "notes": "टिप्पणियाँ (वैकल्पिक)",
+    "today": "आज",
+    "upcoming": "आगामी",
+    "completed": "पूर्ण",
+    "empty_today": "आज कोई कार्य नहीं 🎉",
+    "empty_upcoming": "कोई आगामी कार्य नहीं",
+    "empty_completed": "अभी तक कोई पूर्ण कार्य नहीं",
+    "confirm_delete": "यह कार्य हटाएं?",
+    "delete": "हटाएं",
+    "cancel": "रद्द करें"
+  },
+  "hub": {
+    "title": "कैंपस हब",
+    "announcements": "घोषणाएं",
+    "events": "आगामी कार्यक्रम",
+    "calendar": "कैंपस कैलेंडर",
+    "no_announcements": "अभी कोई घोषणा नहीं",
+    "no_events": "कोई आगामी कार्यक्रम नहीं"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "language": "भाषा",
+    "theme": "थीम",
+    "light": "लाइट",
+    "dark": "डार्क",
+    "notifications": "सूचनाएं",
+    "sign_out": "साइन आउट",
+    "sign_out_confirm": "क्या आप साइन आउट करना चाहते हैं?"
+  },
+  "auth": {
+    "onboarding_title": "Arcus",
+    "onboarding_sub": "छात्रों द्वारा, छात्रों के लिए",
+    "login": "लॉगिन",
+    "signup": "साइन अप",
+    "email": "विश्वविद्यालय ईमेल",
+    "password": "पासवर्ड",
+    "forgot_password": "पासवर्ड भूल गए?"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "error": "कुछ गलत हो गया",
+    "retry": "पुनः प्रयास",
+    "save": "सहेजें",
+    "done": "हो गया",
+    "close": "बंद करें",
+    "back": "वापस"
+  },
+  "nav": {
+    "faculty": "फैकल्टी",
+    "hub": "हब",
+    "tasks": "कार्य",
+    "dev": "डेव",
+    "profile": "प्रोफ़ाइल"
+  }
+}

@@ -1,0 +1,110 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─────────────────────────────────────────────────────────────
+    // HELPER FUNCTIONS
+    // ─────────────────────────────────────────────────────────────
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // USERS — students can only read/update their own profile
+    // ─────────────────────────────────────────────────────────────
+    match /users/{uid} {
+      allow read:   if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid);
+      // Only allow updating safe profile fields, not isAdmin or role
+      allow update: if isOwner(uid) &&
+                       !request.resource.data.diff(resource.data).affectedKeys()
+                         .hasAny(['isAdmin', 'role', 'status', 'uid', 'email', 'createdAt']);
+      allow delete: if false; // never
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // FACULTY — any signed-in user can read, nobody can write via client
+    // ─────────────────────────────────────────────────────────────
+    match /faculty/{docId} {
+      allow read:   if isSignedIn();
+      allow write:  if false; // only via Firebase Admin SDK (backend)
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // FACULTIES (alternate collection name) — same rules
+    // ─────────────────────────────────────────────────────────────
+    match /faculties/{docId} {
+      allow read:   if isSignedIn();
+      allow write:  if false;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // REPORTS — any signed-in user can create a report,
+    //           only admins can read all reports or update status
+    // ─────────────────────────────────────────────────────────────
+    match /reports/{reportId} {
+      allow create: if isSignedIn() &&
+                       request.resource.data.keys().hasAll(['facultyId', 'reportType', 'description']) &&
+                       request.resource.data.description.size() <= 500 &&
+                       request.resource.data.reportType in ['wrong_cabin', 'wrong_dept', 'wrong_name', 'not_found', 'other'];
+      allow read:   if isAdmin();
+      allow update: if isAdmin() &&
+                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+      allow delete: if false;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // TASKS — users own their task sub-collection completely
+    // ─────────────────────────────────────────────────────────────
+    match /tasks/{uid}/items/{taskId} {
+      allow read, write: if isOwner(uid);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // ANNOUNCEMENTS & EVENTS — any signed-in user can read active ones
+    //                           only admins can write
+    // ─────────────────────────────────────────────────────────────
+    match /announcements/{docId} {
+      allow read:  if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /events/{docId} {
+      allow read:  if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // SESSIONS & CREDENTIALS — only accessible via Admin SDK (backend)
+    // ─────────────────────────────────────────────────────────────
+    match /sessions/{sessionId} {
+      allow read, write: if false;
+    }
+
+    match /user_credentials/{credId} {
+      allow read, write: if false;
+    }
+
+    match /email_otp_requests/{email} {
+      allow read, write: if false;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // DEFAULT: deny everything not explicitly allowed above
+    // ─────────────────────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

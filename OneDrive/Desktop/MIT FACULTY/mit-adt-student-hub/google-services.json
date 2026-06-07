@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "486841171883",
+    "firebase_url": "https://mit-adt-student-hub-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mit-adt-student-hub",
+    "storage_bucket": "mit-adt-student-hub.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486841171883:android:f651004837f456e47e1cee",
+        "android_client_info": {
+          "package_name": "com.arcus.campusapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486841171883-rc6b8m829p38qknuvad43talfcmhl77h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB94qFbF3wfNBHsMCt8AS5KEHzRAyC9Q_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486841171883-rc6b8m829p38qknuvad43talfcmhl77h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
