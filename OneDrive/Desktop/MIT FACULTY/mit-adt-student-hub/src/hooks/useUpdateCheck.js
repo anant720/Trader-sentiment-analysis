@@ -6,7 +6,7 @@ import { Capacitor, registerPlugin } from '@capacitor/core';
 const ApkInstaller = registerPlugin('ApkInstaller');
 
 // Update this to wherever you decide to host version.json
-const VERSION_URL = 'https://raw.githubusercontent.com/anant720/arcus-deploy/master/landing/version.json';
+const VERSION_URL = 'https://raw.githubusercontent.com/anant720/arcus/master/landing/version.json';
 
 // Current App Version (Hardcoded)
 const APP_VERSION = '1.0.0';
