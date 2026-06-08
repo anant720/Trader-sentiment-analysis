@@ -9,7 +9,7 @@ const ApkInstaller = registerPlugin('ApkInstaller');
 const VERSION_URL = 'https://raw.githubusercontent.com/anant720/arcus/master/landing/version.json';
 
 // Current App Version (Hardcoded)
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 
 export function useUpdateCheck() {
   const [updateInfo, setUpdateInfo] = useState({
