@@ -1,9 +1,9 @@
 import useAuthStore from '../store/authStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, Info, Mail, LogOut, User, BookOpen, GraduationCap, Hash, Shield, Bug, RefreshCw } from 'lucide-react';
+import { ChevronRight, Info, Mail, LogOut, User, Shield, Bug, RefreshCw, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import otaService from '../services/otaService';
+import { useUpdateCheck } from '../hooks/useUpdateCheck';
 
 export default function ProfilePage() {
   const profile = useAuthStore(s => s.profile);
@@ -13,35 +13,17 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const [showAbout, setShowAbout] = useState(false);
 
-  const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
-  const [updateMessage, setUpdateMessage] = useState('');
-
-  const checkForUpdates = async () => {
-    setIsCheckingUpdate(true);
-    setUpdateMessage('Checking...');
-    try {
-      const updateInfo = await otaService.checkForUpdates();
-      if (updateInfo) {
-        setUpdateMessage(`Downloading v${updateInfo.version}...`);
-        const success = await otaService.downloadAndInstall(updateInfo);
-        if (success) {
-          setUpdateMessage('Update applied! Restarting...');
-        } else {
-          setUpdateMessage('Update failed.');
-        }
-      } else {
-        setUpdateMessage('Up to date!');
-      }
-    } catch (e) {
-      setUpdateMessage('Check failed');
-    }
-    setTimeout(() => {
-      setIsCheckingUpdate(false);
-      setUpdateMessage('');
-    }, 3000);
-  };
-
-
+  const { 
+    updateAvailable, 
+    latestVersion, 
+    isChecking, 
+    isDownloading, 
+    downloadProgress, 
+    error, 
+    downloadAndInstall, 
+    APP_VERSION,
+    forceUpdate
+  } = useUpdateCheck();
 
   const data = {
     name: profile?.displayName || user?.displayName || 'Student Name',
@@ -49,12 +31,64 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] px-4 pb-28 pt-4">
+      {/* Force Update Modal */}
+      {updateAvailable && forceUpdate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-sm shadow-2xl relative overflow-hidden">
+             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-4 mx-auto">
+               <Download size={32} />
+             </div>
+             <h3 className="text-center text-xl font-black mb-2 text-gray-900">Critical Update Required</h3>
+             <p className="text-center text-gray-500 font-medium text-sm mb-6">
+               Version {latestVersion} is available and must be installed to continue using Arcus.
+             </p>
+             <button
+               onClick={downloadAndInstall}
+               disabled={isDownloading}
+               className="w-full bg-blue-600 text-white font-bold h-12 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform"
+             >
+               {isDownloading ? `Downloading... ${downloadProgress}%` : 'Update Now'}
+             </button>
+             {error && <p className="text-red-500 text-sm text-center mt-3 font-semibold">{error}</p>}
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="sticky top-0 z-20 bg-[var(--color-bg)]/80 backdrop-blur-xl pb-4 mb-6" style={{ paddingTop: 'max(16px, var(--safe-top))' }}>
         <h1 className="text-[32px] font-black tracking-tight text-[var(--color-text)]">Settings</h1>
       </div>
 
       <div className="space-y-6 relative z-10">
+        
+        {/* Optional Update Banner */}
+        {updateAvailable && !forceUpdate && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-blue-600 rounded-[24px] p-5 shadow-lg relative overflow-hidden text-white flex flex-col gap-3"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-10 translate-x-10"></div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <Download size={20} className="text-white" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg leading-tight">New Update (v{latestVersion})</h3>
+                <p className="text-blue-100 text-sm font-medium">A new version of Arcus is available.</p>
+              </div>
+            </div>
+            <button
+              onClick={downloadAndInstall}
+              disabled={isDownloading}
+              className="bg-white text-blue-600 font-bold h-11 rounded-xl w-full mt-1 flex items-center justify-center active:scale-[0.98] transition-transform"
+            >
+              {isDownloading ? `Downloading... ${downloadProgress}%` : 'Tap to Install'}
+            </button>
+            {error && <p className="text-red-200 text-xs font-semibold text-center">{error}</p>}
+          </motion.div>
+        )}
+
         {/* Profile Card Section */}
         <section className="bg-white rounded-[24px] border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden">
           <Row icon={User} label="Name" value={data.name} />
@@ -72,17 +106,9 @@ export default function ProfilePage() {
           <ActionRow
             icon={Info}
             label="About App"
-            value={otaService.currentVersion}
+            value={`v${APP_VERSION}`}
             onClick={() => setShowAbout(v => !v)}
             showArrow
-          />
-          <Divider />
-          <ActionRow
-            icon={RefreshCw}
-            label="Check for Updates"
-            value={updateMessage || "Check Now"}
-            onClick={isCheckingUpdate ? null : checkForUpdates}
-            showArrow={!isCheckingUpdate}
           />
           <Divider />
           <ActionRow
