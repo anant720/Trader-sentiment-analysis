@@ -5,10 +5,7 @@ import useAuthStore from '../../store/authStore';
 import { DEPARTMENTS } from '../../lib/facultyData';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
-const YEARS = [
-  '1st Year', '2nd Year', '3rd Year', '4th Year', 
-  'M.Tech', 'PhD'
-];
+
 
 export default function CompleteProfilePage() {
   const navigate = useNavigate();
@@ -20,11 +17,6 @@ export default function CompleteProfilePage() {
 
   const [formData, setFormData] = useState({
     displayName: '',
-    department: '',
-    course: '',
-    enrollment: '',
-    roll: '',
-    yearIndex: 0,
   });
 
   useEffect(() => {
@@ -38,17 +30,12 @@ export default function CompleteProfilePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.displayName || !formData.department) return;
+    if (!formData.displayName) return;
 
     await Haptics.impact({ style: ImpactStyle.Medium });
 
     const res = await completeProfile({
-      displayName: formData.displayName,
-      department: formData.department,
-      course: formData.course,
-      enrollment: formData.enrollment,
-      roll: formData.roll,
-      year: formData.yearIndex + 1
+      displayName: formData.displayName
     });
 
     if (res.success) {
@@ -97,78 +84,7 @@ export default function CompleteProfilePage() {
               />
             </div>
 
-            <div className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700">Department</label>
-              <select 
-                required
-                className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all appearance-none"
-                value={formData.department}
-                onChange={e => setFormData({ ...formData, department: e.target.value })}
-              >
-                <option value="" disabled>Select School</option>
-                {DEPARTMENTS.map(dept => (
-                  <option key={dept} value={dept}>{dept}</option>
-                ))}
-              </select>
-            </div>
 
-            <div className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700">Course</label>
-              <input
-                required
-                className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                placeholder="B.Tech CSE"
-                value={formData.course}
-                onChange={e => setFormData({ ...formData, course: e.target.value })}
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Enrollment</label>
-                <input
-                  required
-                  className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                  placeholder="ADT24..."
-                  value={formData.enrollment}
-                  onChange={e => setFormData({ ...formData, enrollment: e.target.value.toUpperCase() })}
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Roll</label>
-                <input
-                  required
-                  className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                  placeholder="05"
-                  value={formData.roll}
-                  onChange={e => setFormData({ ...formData, roll: e.target.value })}
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">Academic Year</label>
-              <div className="grid grid-cols-3 gap-2">
-                {YEARS.map((year, idx) => (
-                  <button
-                    key={year}
-                    type="button"
-                    onClick={async () => {
-                      await Haptics.impact({ style: ImpactStyle.Light });
-                      setFormData({ ...formData, yearIndex: idx });
-                    }}
-                    className={`py-2 rounded-lg text-xs font-semibold border transition-all ${
-                      formData.yearIndex === idx 
-                        ? 'bg-indigo-600 text-white border-indigo-600' 
-                        : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'
-                    }`}
-                  >
-                    {year}
-                  </button>
-                ))}
-              </div>
-            </div>
 
             {error && (
               <div className="w-full p-4 mt-6 bg-red-50 rounded-lg border border-red-100">

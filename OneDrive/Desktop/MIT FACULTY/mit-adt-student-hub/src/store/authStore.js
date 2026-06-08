@@ -76,14 +76,7 @@ const useAuthStore = create((set, get) => ({
           }
         }
 
-        const isComplete = !!(
-          profile?.displayName &&
-          profile?.department &&
-          profile?.course &&
-          profile?.year &&
-          profile?.enrollment &&
-          profile?.roll
-        );
+        const isComplete = !!(profile?.displayName);
         set({
           user: fallbackUser || { uid: profile?.uid, email: profile?.email },
           profile,
@@ -137,14 +130,7 @@ const useAuthStore = create((set, get) => ({
     set({ isLoading: true, error: null, isAuthenticating: true });
     try {
       const { user, profile } = await signInWithGoogleService();
-      const isComplete = !!(
-        profile?.displayName &&
-        profile?.department &&
-        profile?.course &&
-        profile?.year &&
-        profile?.enrollment &&
-        profile?.roll
-      );
+      const isComplete = !!(profile?.displayName);
 
       set({
         user,
@@ -186,14 +172,7 @@ const useAuthStore = create((set, get) => ({
     try {
       const res = await signInWithEmail({ email, password });
       const profile = res.profile || null;
-      const isComplete = !!(
-        profile?.displayName &&
-        profile?.department &&
-        profile?.course &&
-        profile?.year &&
-        profile?.enrollment &&
-        profile?.roll
-      );
+      const isComplete = !!(profile?.displayName);
       set({
         user: { uid: profile?.uid, email: profile?.email },
         profile,
@@ -218,12 +197,7 @@ const useAuthStore = create((set, get) => ({
     set({ isLoading: true });
     try {
       const updateData = await completeUserProfile({
-        displayName,
-        department,
-        course,
-        year,
-        enrollment,
-        roll,
+        displayName
       });
       
       // Update local state

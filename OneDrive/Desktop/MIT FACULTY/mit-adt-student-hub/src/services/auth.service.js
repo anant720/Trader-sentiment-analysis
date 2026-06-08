@@ -72,11 +72,6 @@ export async function getUserProfile() {
 export async function completeUserProfile(payload) {
   const updateData = {
     displayName: payload.displayName,
-    department: payload.department,
-    course: payload.course,
-    year: Number(payload.year),
-    enrollment: payload.enrollment,
-    roll: payload.roll,
     isComplete: true,
   };
   const res = await apiRequest('/profile/me', {

@@ -45,9 +45,6 @@ export default function ProfilePage() {
 
   const data = {
     name: profile?.displayName || user?.displayName || 'Student Name',
-    course: profile?.course || 'B.Tech CSE',
-    enrollment: profile?.enrollment || 'ADT24SOCB0141',
-    roll: profile?.roll || '05',
   };
 
   return (
@@ -61,14 +58,6 @@ export default function ProfilePage() {
         {/* Profile Card Section */}
         <section className="bg-white rounded-[24px] border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden">
           <Row icon={User} label="Name" value={data.name} />
-          <Divider />
-          <Row icon={BookOpen} label="Course" value={data.course} />
-        </section>
-
-        <section className="bg-white rounded-[24px] border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden">
-          <Row icon={GraduationCap} label="Enrollment" value={data.enrollment} />
-          <Divider />
-          <Row icon={Hash} label="Roll No" value={data.roll} />
         </section>
 
         {/* System & About Section */}
